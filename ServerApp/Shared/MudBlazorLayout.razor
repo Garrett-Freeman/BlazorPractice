@@ -1,0 +1,37 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider @bind-IsDarkMode=@DarkModeOn/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        Mud Blazor Layout
+        <MudSpacer />
+        <MudToggleIconButton @bind-Toggled="@DarkModeOn"
+                             Icon="@Icons.Material.Outlined.LightMode" Color="@Color.Secondary" Title="Off"
+                             ToggledIcon="@Icons.Material.Outlined.DarkMode" ToggledColor="@Color.Primary" ToggledTitle="On" Edge="Edge.End" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <MudNavMenu Color="Color.Primary">
+            <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
+            <MudNavLink Href="/counter" Match="NavLinkMatch.All">Counter</MudNavLink>
+            <MudNavLink Href="/fetchdata" Match="NavLinkMatch.All">Fetch Data</MudNavLink>
+            <MudNavLink Href="/emails" Match="NavLinkMatch.All">Emails</MudNavLink>
+            <MudNavLink Href="/DifferentLayout" Match="NavLinkMatch.All">Different Layout</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+@code {
+    bool _drawerOpen = true;
+    bool DarkModeOn { get; set; } = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

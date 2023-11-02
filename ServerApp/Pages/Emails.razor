@@ -1,0 +1,15 @@
+﻿@page "/emails"
+@inject IMockDataAccess _db;
+
+<h3>Emails</h3>
+<p>This component uses a Razor Class Library for the table and data access.</p>
+<TableComponent Data="@Data" />
+
+@code {
+    private List<TableModel> Data { get; set; } = new();
+
+    protected async override void OnInitialized()
+    {
+        Data = await _db.GetDataAsync();
+    }
+}
