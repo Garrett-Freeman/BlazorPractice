@@ -1,0 +1,20 @@
+﻿
+<div class="Prompt">
+    <MudTextField Label="Enter Phrase" Variant="Variant.Text" @bind-Value="@phrase" Class="pb-2" />
+
+    <br />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="(() => OnButtonClick(phrase))">Trigger Callback</MudButton>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<string> Phrase { get; set; }
+
+    private string phrase { get; set; }
+
+    private async void OnButtonClick(string myPhrase)
+    {
+        await Phrase.InvokeAsync(myPhrase);
+    }
+
+}

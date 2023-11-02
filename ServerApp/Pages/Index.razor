@@ -2,8 +2,64 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudThemeProvider IsDarkMode=false/>
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-Welcome to your new app.
+<div class="row">
+    <div class="col">
+        <h1>Hello, world!</h1>
+        <p>This is a simple application demonstrating the basics of Blazor.</p>
+    </div>
+</div>
+<MudDivider />
+<div class="row">
+    <div class="col">
+        <h4>Cascading Value</h4>
+        <p>Value: @CascadingValue</p>
+    </div>
+</div>
+<MudDivider />
+<div class="row">
+    <div class="col">
+        <h4>Event Callback</h4>
+        <p>Enter a phrase in the prompt child component, it will then send the phrase back to this parent page!</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+            <Prompt Phrase="@(args => SayPhrase(args))" />
+      
+        <br />
+        Phrase: @MyPhrase
+    </div>
+</div>
+
+<MudDivider />
+<div class="row">
+    <div class="col">
+        <h4>JS Interop</h4>
+
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@TriggerJS">Trigger JavaScript</MudButton>
+
+    </div>
+</div>
+
+@code {
+    [CascadingParameter(Name = "CascadingValue")]
+    private string CascadingValue { get; set; } = "";
+
+    [Inject]
+    protected IJSRuntime _js { get; set; }
+
+    private string MyPhrase { get; set; } = "";
+
+    private void SayPhrase(string phrase)
+    {
+        MyPhrase = phrase;
+    }
+
+    private void TriggerJS()
+    {
+        ExampleJsInterop js = new(_js);
+
+        js.RotatePage(); 
+    }
+}

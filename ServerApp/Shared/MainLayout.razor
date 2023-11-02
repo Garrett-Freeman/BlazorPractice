@@ -13,7 +13,15 @@
         </div>
 
         <article class="content px-4">
-            @Body
+            <CascadingValue Value="@("I'm a cascading value!")" Name="CascadingValue" >
+                <CascadingValue Value="@SayHello" Name="EventCallback">
+                @Body
+                </CascadingValue>
+            </CascadingValue>
         </article>
     </main>
 </div>
+
+@code {
+    public EventCallback<string> SayHello { get; set; }
+}

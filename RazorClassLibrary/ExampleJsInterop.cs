@@ -25,6 +25,12 @@ namespace RazorClassLibrary
             return await module.InvokeAsync<string>("showPrompt", message);
         }
 
+        public async void RotatePage()
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("rotatePage");
+        }
+
         public async ValueTask DisposeAsync()
         {
             if (moduleTask.IsValueCreated)
